@@ -29,18 +29,21 @@ def home():
 def prcp():
     session = Session(engine)
     results = session.query(measurement.date, measurement.prcp).filter(measurement.date > '2016-08-23').all()
+    session.close()
     return { date:prcp for date,prcp in results }
 
 @app.route('/api/v1.0/stations')
 def stations():
     session = Session(engine)
     results = session.query(station.station, station.name).filter(measurement.date > '2016-08-23').all()
+    session.close()
     return { date:prcp for date,prcp in results }
 
 @app.route('/api/v1.0/tobs')
 def tobs():
     session = Session(engine)
     results = session.query(measurement.date, measurement.tobs).filter((measurement.date > '2016-08-23')&(measurement.station=='USC00519281')).all()
+    session.close()
     return { date:tobs for date,tobs in results }
 
 @app.route('/api/v1.0/<start>')
