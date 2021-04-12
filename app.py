@@ -52,6 +52,7 @@ def agg(start,end='2017-08-23'):
     session = Session(engine)
     results = session.query(func.min(measurement.tobs), func.avg(measurement.tobs),func.max(measurement.tobs)).filter((measurement.date >= start)&(measurement.date <= end)).all()
     return jsonify(results)
+    session.close()
 
 
 
